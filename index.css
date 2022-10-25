@@ -6,13 +6,45 @@
 body {
   background-color: #111111;
   text-align: center;
-  padding-top: 4%;
+  padding-top: 2%;
+  padding-right: 10%;
+  padding-left: 10%;
   font-family: FiraCode;
   font-size: 150%;
+  color: #ffffff;
+}
+
+li {
+  float: left;
+  text-align: center;
+  margin-left: 20%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+::-moz-selection { /* Code for Firefox */
+  background: #ffffff;
+}
+
+::selection {
+  background: #222222;
 }
 
 .rainbow-text {
   background: linear-gradient(to right, #E359FF, #FF9959, #FFCB59);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.paragraph {
+  padding-top: 6%;
+}
+
+.contact {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #222222;
+  text-decoration: none;
+  list-style-type: none;
 }
