@@ -1,0 +1,18 @@
+@font-face {
+    font-family: FiraCode;
+    src: url("res/fonts/fira_code.ttf") format("truetype");
+}
+
+body {
+  background-color: #111111;
+  text-align: center;
+  padding-top: 4%;
+  font-family: FiraCode;
+  font-size: 150%;
+}
+
+.rainbow-text {
+  background: linear-gradient(to right, #E359FF, #FF9959, #FFCB59);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
