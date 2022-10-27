@@ -3,31 +3,45 @@
     src: url("res/fonts/fira_code.ttf") format("truetype");
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 body {
   background-color: #111111;
   text-align: center;
-  padding-top: 2%;
-  padding-right: 10%;
-  padding-left: 10%;
   font-family: FiraCode;
   font-size: 150%;
   color: #ffffff;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: 260%;
 }
 
-li {
-  float: left;
-  text-align: center;
-  margin-left: 20%;
-  margin-top: 1%;
-  margin-bottom: 1%;
+ul {
+  text-decoration: none;
+  list-style-type: none;
+  overflow: hidden;
+  list-style: none;
 }
 
-::-moz-selection { /* Code for Firefox */
-  background: #ffffff;
+a {
+  text-decoration: none;
+  opacity: 0.6;
+  transition: 0.5s;
 }
 
-::selection {
-  background: #222222;
+a:hover {
+  opacity: 1.0;
+}
+
+.project-links {
+  font-size: 40;
+  transition: 0.3s;
+}
+
+.project-links:hover {
+  font-size: 42;
 }
 
 .rainbow-text {
@@ -36,15 +50,53 @@ li {
   -webkit-text-fill-color: transparent;
 }
 
-.paragraph {
-  padding-top: 6%;
+.navbar {
+  width: 10rem;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  padding-left: 1%;
+  padding-top: 1%;
 }
 
-.contact {
-  margin: 0;
+.navbar-items {
+  list-style: none;
   padding: 0;
-  overflow: hidden;
-  background-color: #222222;
-  text-decoration: none;
-  list-style-type: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-icon {
+  height: 80px;
+  margin-top: 20%;
+}
+/*  transition: 0.3s;
+}
+
+.navbar-icon:hover {
+  height: 90px;
+}*/
+
+.home-title {
+  padding-top: 20%;
+  padding-bottom: 15%;
+  font-size: 200%;
+  font-weight: bold;
+}
+
+.title {
+  padding-top: 15%;
+  font-size: 200%;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 130%;
+  font-weight: bold;
+}
+
+.shift-down {
+  margin-bottom: 5%;
 }

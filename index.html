@@ -1,54 +1,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
-<html>
+<html lang="EN">
   <head>
-    <title>Nickel-Dev ~ Mainpage</title>
+  
+    <title>Nickel Dev</title>
     <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
+  
   </head>
+  
   <body>
-    
-    <p>
-      <nav>
-        <ul class="contact">
-          <li><a class="rainbow-text" href="mailto: nickel-dev@proton.me">e-mail</a></li>
-          <li><a class="rainbow-text" href="https://github.com/nickel-dev">github</a></li>
-          <li><a class="rainbow-text" href="https://www.youtube.com/channel/UC0EUzVE5lTTZ8aGAZ9D60zA">youtube</a></li>
-        <ul>
-      </nav>
-    </p>
-    
-    <h3 style="margin-top: 5%;" class="rainbow-text">Hello, little wanderer <span id="cursor">█</span> </h3>
-    
-    <p class="paragraph rainbow-text">// about me</p>
-    <p>
-      My name is Daniel Nickel.<br>
-      I'm a student in germany and love ♡ programing.<br>
-      My goal is to become the *best* programmer ever. =)<br>
-    </p>
 
-    <p class="paragraph rainbow-text">// my stuff</p>
-    <p>
-      I'm personally really into GameDev,<br>
-      I just really love the process.<br>
-      (mostly when making everything from scratch of course)<br>
-    </p>
-    <p class="paragraph">
-      █████████████████████████████████████████<br>
-      █.......................................█<br>
-      █.......................................█<br>
-      █.......................................█<br>
-      █.........E.............................█<br>
-      █............................0..........█<br>
-      █.................@.....................█<br>
-      █.......................................█<br>
-      █████████████████.......................█<br>
-      █.......................................█<br>
-      █.......................................█<br>
-      █...............................[X].....█<br>
-      █.......................................█<br>
-      █HEALTH: 20.............................█<br>
-      █████████████████████████████████████████<br>
-    </p>
+    <nav class="navbar" id="navbar">
+      <ul class="navbar-items">
+        <a href="https://github.com/nickel-dev/"><img src="res/gfx/github.svg" class="navbar-icon"></a>
+        <a href="https://youtube.com/channel/UC0EUzVE5lTTZ8aGAZ9D60zA"><img src="res/gfx/youtube.svg" class="navbar-icon"></a>
+        <a href="https://odysee.com/@nickel:df"><img src="res/gfx/odysee.svg" class="navbar-icon"></a>
+        <a href="https://discord.gg/QwGC2Z7h"><img src="res/gfx/discord.svg" class="navbar-icon"></a>
+      </ul> 
+    </nav>
+
+    <main>
+
+      <section id="home">
+        <p class="rainbow-text home-title">Hello, little wanderer ...</p>  
+      </section>
+
+      <section id="about" class="new-section">
+        <p class="rainbow-text title shift-down">// about me</p>
+        <p class="text">I'm Daniel Nickel, a student from Germany.</p>
+        <p class="text">I'm mostly interested in gamedev with C.</p>
+        <p class="text">At the moment I'm making a game-engine called Weasel.</p>
+      </section>
+
+      <section id="projects" class="new-section">
+        <p class="rainbow-text title shift-down">// projects</p>
+        <a href="https://github.com/nickel-dev/sandox/"><p class="rainbow-text project-links">sandox - a pixel simulation written in C and OpenGL</p></a>
+        <a href="https://github.com/nickel-dev/utils/"><p class="rainbow-text project-links">utils - a header collection of utils for C and C++</p></a>
+        <a href="https://github.com/nickel-dev/rayn/"><p class="rainbow-text project-links">rayn - a 3D raycaster written in C with OpenGL</p></a>
+        <a href="https://github.com/nickel-dev/coders-dream/"><p class="rainbow-text project-links">coders dream - a python code editor similar to sublime-text</p></a>
+      </section>
+
+    </main>
 
   </body>
 </html>
