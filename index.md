@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet"> 
@@ -26,17 +25,17 @@
     font-size: 125%;
   }
 </style>
-<header><h1> Hello, little wanderer</h1></header>
-&emsp;<br>
+# Hello, little wanderer
+
 <hr>
 </hr>
-&emsp;<br>
-<header><h2> about</h2></header>
+
+## about
 <div class="bounding-box">
 My name is Daniel, I'm a student and programmer in germany.
 </div>
-&emsp;<br>
-<header><h2> portfolio</h2></header>
+
+## portfolio
 <div class="bounding-box">
   <!--<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nickel-dev&hide_progress=false&theme=gruvbox&hide_border=true&layout=compact" width=60%>
   </img><br><br>-->
@@ -47,12 +46,11 @@ My name is Daniel, I'm a student and programmer in germany.
   <a href="https://unity.com/"><img class="inverted" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/unity/unity-original.svg" width=40 height=40></a>
   <a href="https://kernel.org/"><img class="inverted" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-plain.svg" width=40 height=40></a>
 </div>
-&emsp;<br>
-<header><h2> socials</h2></header>
+
+## socials
 <div class="bounding-box">
 <a href="mailto:nickel-dev@proton.me" target="_blank"><img class="inverted" src="https://www.svgrepo.com/show/502648/email.svg" width=30 height=30></a>
 <a href="https://youtube.com/@nickel-dev"><img src="https://nickel-dev.github.io/res/gfx/youtube.svg" width=30 height=30></a>
 <a href="https://odysee.com/@nickel:df"><img src="https://nickel-dev.github.io/res/gfx/odysee.svg" width=30 height=30></a>
 <a href="https://github.com/nickel-dev"><img src="https://nickel-dev.github.io/res/gfx/github.svg" width=30 height=30></a>
 </div>
-&emsp;<br>
