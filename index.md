@@ -50,6 +50,5 @@ My name is Daniel, I'm a student and programmer in germany.
 ## socials
 <div class="bounding-box">
 <a href="mailto:nickel-dev@proton.me" target="_blank"><img class="inverted" src="https://www.svgrepo.com/show/502648/email.svg" width=30 height=30></a>
-<a href="https://youtube.com/@CozyFog"><img src="https://nickel-dev.github.io/res/gfx/youtube.svg" width=30 height=30></a>
 <a href="https://github.com/nickel-dev"><img src="https://nickel-dev.github.io/res/gfx/github.svg" width=30 height=30></a>
 </div>
