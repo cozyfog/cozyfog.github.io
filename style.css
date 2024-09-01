@@ -80,3 +80,11 @@ a, a:link, a:visited, a:active {
   color: #dc7575;
   text-decoration: none;
 }
+
+.section {
+  margin-bottom: 25px;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border:1px solid #888888;
+}
