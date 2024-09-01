@@ -5,6 +5,25 @@ html {
   font-size: 125%;
 }
 
+@media only screen and (max-width: 640px){
+	html {
+		font-size: 125% !important;
+	}
+	html {
+		font-size: 135% !important;
+  }
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: #151515;
+  background: #88c0d0;
+}
+
+::selection {
+  color: #151515;
+  background: #88c0d0;
+}
+
 body {
   border-radius: 5px;
   padding: 15px;
@@ -46,6 +65,10 @@ main {
 
 i {
   color: #888888;
+}
+
+i.notice {
+  color: #88c0d0;
 }
 
 h1, h2, h3, h4, h5, h6, b{
