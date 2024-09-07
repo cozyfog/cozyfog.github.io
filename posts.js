@@ -16,7 +16,7 @@ function generate_header()
   let name = filename.split('_').join(' ').replace('.html', '');
   const date = name.substring(0, name.lastIndexOf('-'));
   name = name.substring(name.lastIndexOf('-') + 1);
-  return '<title>' + date + ' - ' + name + '</title><i>' + date + '</i><h1>' + name + '</h1><a href="../"><< Back</a><hr>' + header
+  return '<title>' + date + ' - ' + name + '</title><i>' + date + '</i><h1>' + name + '</h1><a href="../"><< Back</a><hr>' + header + '	<select name="themes" id="themes"><option value="dark">dark</option><option value="raw">raw</option><option value="none">none</option></select>'
 }
 
 function remove_new_line(name)
@@ -33,4 +33,25 @@ function generate_page()
   remove_new_line('pre code');
 
   body.innerHTML = header + body.innerHTML + footer;
+
+  document.getElementById('themes').addEventListener('change', function () {
+    let styles = document.getElementsByTagName('link');
+    switch (this.value) {
+      case "raw":
+      styles[0].disabled = true;
+      styles[1].disabled = false;
+      break;
+
+      case "none":
+      styles[0].disabled = true;
+      styles[1].disabled = true;
+      break;
+
+      default:
+      case "dark":
+      styles[0].disabled = false;
+      styles[1].disabled = false;
+      break;
+    }
+  });
 }
