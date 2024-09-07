@@ -74,7 +74,7 @@ struct Entity {
 
 			In this case we just create and free entites as we go.
 			This is simple and for a very small game easy to keep track of.
-			If you want to you can even define all of the in global scope.
+			If you want to you can even define all of the entities in global scope.
       <pre><code class="language-c">
 // Global scope
 Entity player = 0;
@@ -100,8 +100,8 @@ Entity coin = 0;
 ...
       </code></pre>
 
-			This is why you also opt for the memory arena.
-			<i>// If you want to read more about memory arenas: <a href="https://www.youtube.com/watch?v=3IAlJSIjvH0">Arenas, strings and Scuffed Templates in C</a></i>
+			This is why you should opt for the memory arena.
+			<i>// If you want to hear more about memory arenas: <a href="https://www.youtube.com/watch?v=3IAlJSIjvH0">Arenas, strings and Scuffed Templates in C</a></i>
 
 			In a memory arena you allocate all the memory that is going to be used at once.
 			Then you just access this pointer and just offset it to get the memorty you need.
@@ -132,7 +132,7 @@ void delete_entity(Entity* entity) {
 			When you are finished with an area, level or even a game state (Menu -> Game), you can just free the arena and allocate a new one.
 
 			This is probably the best way of managing entities for level based games, but if you want to make a sandbox for example you will need something different.
-			The <i>"Put everything in an array"</i>, putting everything in an array makes it more easy on the eye and easy to reuse unused entities.
+			The <i>Put everything in an array</i>, putting everything in an array makes it more easy to reuse old entities.
 			<pre><code class="language-c">
 Entity entities[MAX_ENTITIES];
 
@@ -156,9 +156,9 @@ void delete_entity(Entity* entity) {
 </div>
 <div class="section"><h3>Systems</h3>
 			The last thing we now have to think about is the systems.
-			like already mentioned in the ECS section, systems are the function that manipulate the entities data. Those are what the game is mostly build up from.
-			The only quiestion you may now have is, how do we design a modular systems structure.
-			And this is actually the easiest part!
+			like already mentioned in the ECS section, systems are the functions that manipulate the entities data. Those are what the game is mostly build up from.
+			The only quiestion you may now have is, how do we design a modular systems structure?
+			And this is actually the easiest part.
 			I like to divide systems in major and minor systems.
 			The major systems are made up of minor systems.
 			<pre><code class="language-c">
@@ -183,10 +183,10 @@ void update_player(Entity* player) {
 </div>
 <div class="section"><h3>Conclusion</h3>
     	Most of the stuff written here is probably obvious and actually very simple in nature.
-			But looking at thing from a different perspective or talking about the simple things help us build up stronger foundations.
+			But looking at things from a different perspective, or talking about the simple things, helps in building up stronger foundations.
 </div>
 		I hope you liked this post, please comeback soon to see more.
-		This was my first time writing a document like this, so if there are any problems just contact me under <a href="mailto: nickel-dev@proton.me">nickel-dev@proton.me</a>.
+		This was my first time writing a post like this, so if there are any problems, questions or suggestions, just contact me under <a href="mailto: nickel-dev@proton.me">nickel-dev@proton.me</a>.
 
 		<i class="notice">Nickel.</i>
     </main>
