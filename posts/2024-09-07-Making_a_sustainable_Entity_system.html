@@ -1,0 +1,195 @@
+<head>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../prism/prism.css">
+    <script src="../prism/prism.js"></script>
+    <script src="../posts.js"></script>
+  </head>
+    
+  <body>
+    <main>
+			Game and engine developers fear two things.
+			Big classes and memory management.
+      
+			And I think I have figured it out.
+			It is simple to get around those problems and I will show you using entities.
+			Entites in video games are probably the most import concept.
+			But they are also one of the hardest to get right.
+			
+      Every game engine handles them differently.
+      <pre>
+        Unity - GameObject
+        Unreal - Actor
+        Godot - Node
+				...
+      </pre>
+      But the most perfect system I have seen so far for indie games, is probably the most unpopular.
+      It is called the Entity Mega Struct.
+
+      <i>// This post is mainly based on the YouTube talk <a href="https://www.youtube.com/watch?v=UolgW-Ff4bA&t=881s&pp=ygUYZW50aXR5IG1lZ2Egc3RydWN0IHJhbmR5">Why an ECS just ain't it - feat. Ryan Fleury</a> and my own experiences over the years.</i>
+<div class="section"><h3>Entities</h3>
+      A popular way to handle Entites, that has been talked about lately, is the ECS.
+      An ECS (or Entity Component System) sees entites as id's wich then point to it's Components.
+      This makes allocating Components easier and keep the data of the entity seperate from the code (or systems).
+
+      An example for such an ECS could be this:
+      <pre><code class="language-c">
+struct Transform_Component;
+struct Sprite_Component;
+...
+
+// Move by 5m per second
+void move_player(Entity entity) {
+	Transform_Component* t = get_transform_component(entity);
+	t->pos.y += 5.0f * delta_t;
+}
+
+// Draw the sprite
+void draw_entity(Entity entity) {
+	Transform_Component* t = get_transform_component(entity);
+	Sprite_Component* s = get_sprite_component(entity);
+	draw_image(s->image, t->pos, t->size);
+}
+    </code></pre>
+			But such a solution introduces new problems.
+			Those can be simply overcomplication, or you needing to get every single component.
+			Making such a system is just nonsensical for most indie devs.
+
+			In my opinion a better way to solve the entity problem is this:
+      All entites are is data.
+      An entity in a game can just be represented by a single struct.
+			This is called an Entity Mega Struct. This struct contains every piece of data an entity is every goint to need.
+      <pre><code class="language-c">
+struct Entity {
+	bool_t is_active;
+	vec2_t  pos;
+	vec2_t size;
+	sprite_t sprite;
+	...
+};
+      </code></pre>
+			But now we need to think about how we store all of the entites.
+
+			There are three main solution I have tried over time. And I can tell you all of the pros and cons of those.
+			Firstly, the most primitive, the <i>I don't care just do it</i>
+
+			In this case we just create and free entites as we go.
+			This is simple and for a very small game easy to keep track of.
+			If you want to you can even define all of the in global scope.
+      <pre><code class="language-c">
+// Global scope
+Entity player = 0;
+Entity treasure1 = 0;
+
+void update(float delta_t) {
+	player.pos.x += 5.0f * delta_t;
+}
+      </code></pre>
+			But the problem is that the moment you have more than like 20 entities, it will get messy.
+			It's also not very scalable.
+      <pre><code class="language-c">
+Entity player = 0;
+Entity treasure1 = 0;
+Entity treasure2 = 0;
+Entity treasure3 = 0;
+Entity ball = 0;
+Entity ogre1 = 0;
+Entity ogre2 = 0;
+Entity ogre3 = 0;
+Entity ogre4 = 0;
+Entity coin = 0;
+...
+      </code></pre>
+
+			This is why you also opt for the memory arena.
+			<i>// If you want to read more about memory arenas: <a href="https://www.youtube.com/watch?v=3IAlJSIjvH0">Arenas, strings and Scuffed Templates in C</a></i>
+
+			In a memory arena you allocate all the memory that is going to be used at once.
+			Then you just access this pointer and just offset it to get the memorty you need.
+			<pre><code class="language-c">
+Entity* entities = 0;
+size_t entity_count = 0;
+
+void allocate_entities() {
+	// calloc automatically sets everything to zero
+	entites = (Entity*)calloc(MAX_ENTITIES, sizeof(Entity));
+}
+
+void deallocate_entities() {
+	free(entities);
+}
+
+Entity* new_entity() {
+	entity_count += 1;
+	return entities + (entity_count - 1);
+}
+
+void delete_entity(Entity* entity) {
+	memset(entity, 0, sizeof(Entity));
+}
+      </code></pre>
+			This design is super elegant and not very hard to manage.
+			You don't have to think about memory anymore.
+			When you are finished with an area, level or even a game state (Menu -> Game), you can just free the arena and allocate a new one.
+
+			This is probably the best way of managing entities for level based games, but if you want to make a sandbox for example you will need something different.
+			The <i>"Put everything in an array"</i>, putting everything in an array makes it more easy on the eye and easy to reuse unused entities.
+			<pre><code class="language-c">
+Entity entities[MAX_ENTITIES];
+
+Entity* new_entity() {
+	Entity* result = 0;
+	for (size_t i = 0; i &lt MAX_ENTITIES; i++) {
+		result = &entities[i];
+		if (result->is_active == false)
+			return result;
+	}
+	printf("Entity limit exceeded!\n");
+	return 0;
+}
+
+void delete_entity(Entity* entity) {
+	memset(entity, 0, sizeof(Entity));
+}
+      </code></pre>
+			The only downside is, that it is not as easy to clear out the array.
+			<i>// This is probably the only difference to the arena to be honest</i>
+</div>
+<div class="section"><h3>Systems</h3>
+			The last thing we now have to think about is the systems.
+			like already mentioned in the ECS section, systems are the function that manipulate the entities data. Those are what the game is mostly build up from.
+			The only quiestion you may now have is, how do we design a modular systems structure.
+			And this is actually the easiest part!
+			I like to divide systems in major and minor systems.
+			The major systems are made up of minor systems.
+			<pre><code class="language-c">
+// minor systems
+vec2_t get_input_axis() {
+	return vec2(is_key_down(KEY_d) - is_key_down(KEY_a),
+	            is_key_down(KEY_w) - is_key_down(KEY_s));
+}
+
+void draw_sprite(sprite_t sprite) {
+	...
+}
+
+// major system
+void update_player(Entity* player) {
+	player->pos = vec2_add(player->pos, get_input_axis());
+	draw_sprite(player->sprite);
+	...
+}
+      </code></pre>
+			Major systems in basic can take in entity pointers as parameters, while minor systems can only take simple data like floats, vectors or sprite components.
+</div>
+<div class="section"><h3>Conclusion</h3>
+    	Most of the stuff written here is probably obvious and actually very simple in nature.
+			But looking at thing from a different perspective or talking about the simple things help us build up stronger foundations.
+</div>
+		I hope you liked this post, please comeback soon to see more.
+		This was my first time writing a document like this, so if there are any problems just contact me under <a href="mailto: nickel-dev@proton.me">nickel-dev@proton.me</a>.
+
+		<i class="notice">Nickel.</i>
+    </main>
+  </body>
+    
+  <script>generate_page()</script>
