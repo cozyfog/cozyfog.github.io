@@ -26,11 +26,46 @@
   <hr>
 
   <h3>Posts</h3>
-  <div id="posts">
-    <div><i class="post-meta">2024-08-31</i> - <a href="posts/2024-09-07-Making_a_sustainable_Entity_system.html" class="post-title">Making a sustainable Entity system</a></div>
-    <div><i class="post-meta">2024-08-31</i> - <a href="posts/2024-09-01-Daniel_Nickel.html" class="post-title">Daniel Nickel</a></div>
-    <div><i class="post-meta">2024-08-31</i> - <a href="posts/2024-08-31-Template.html" class="post-title">Template</a></div>
-  </div>
+  <div id="posts"></div>
+
+  <script>
+  var posts = document.getElementById('posts');
+
+  function dumpResponse() {
+    var json_data = JSON.parse(this.responseText);
+    tree = json_data['tree'].reverse();
+
+    for (var i = 0; i < tree.length; ++i) {
+      var path = '';
+      var name = '';
+      path = tree[i].path;
+      name = path;
+
+      if (name.startsWith('posts/'))
+        name = name.substring(name.lastIndexOf('/') + 1);
+      else
+        continue;
+
+      if (name == 'index.html')
+        continue;
+
+      console.log(name);
+
+      // Adding the posts
+      {
+        let name = path.substring(path.lastIndexOf('/') + 1).split('_').join(' ').replace('.html', '');
+        const date = name.substring(0, name.lastIndexOf('-'));
+        name = name.substring(name.lastIndexOf('-') + 1);
+        posts.innerHTML += '<div><i class="post-meta">' + date + '</i> - <a href="'+ path +'" class="post-title">' + name + '</a></div>';
+      }
+    }
+  }
+
+  var request = new XMLHttpRequest();
+  request.onload = dumpResponse;
+  request.open('get', 'https://api.github.com/repos/nickel-dev/nickel-dev.github.io/git/trees/main?recursive=1');
+  request.send();
+  </script>
   
   <hr>
 
